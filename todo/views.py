@@ -34,13 +34,13 @@ def login_view(request):
     return render(request, 'todo/login.html')
 
 
- #@login_required
+@login_required(login_url='login')
 def todo_list(request):
     todos = Todo.objects.filter(user=request.user)
     return render(request, 'todo/todo_list.html', {'todos': todos})
 
 
- #@login_required
+@login_required(login_url='login')
 def create_todo(request):
     if request.method == 'POST':
         form = TodoForm(request.POST)
@@ -54,7 +54,7 @@ def create_todo(request):
     return render(request, 'todo/todo_form.html', {'form': form})
 
 
- #@login_required
+@login_required(login_url='login')
 def update_todo(request, pk):
     todo = Todo.objects.get(pk=pk, user=request.user)
     if request.method == 'POST':
